@@ -3,19 +3,10 @@ import Link from 'next/link';
 import { SafeHSpace } from '../components/SafeHSpace';
 
 const Home: NextPage = () => {
-  const bg = (
-    <img
-      src="svg/bg-pattern.svg"
-      alt=""
-      className="select-none pointer-events-none absolute top-0 w-full h-full max-h-[42rem] object-cover -z-50"
-    />
-  );
   return (
     <>
-      {bg}
-      <SafeHSpace>
-        <FrontPageContent></FrontPageContent>
-      </SafeHSpace>
+      <FrontPageContent></FrontPageContent>
+      <SndPageContent></SndPageContent>
     </>
   );
 };
@@ -23,6 +14,13 @@ const Home: NextPage = () => {
 export default Home;
 
 const FrontPageContent = () => {
+  const bg = (
+    <img
+      src="svg/bg-pattern.svg"
+      alt=""
+      className="select-none pointer-events-none absolute top-0 w-full h-full max-h-[42rem] object-cover -z-50"
+    />
+  );
   const left = (
     <>
       <h1 className="uppercase font-extrabold text-5xl">
@@ -46,13 +44,20 @@ const FrontPageContent = () => {
     </>
   );
   return (
-    <div className="flex justify-between h-[36rem] items-center">
-      <div>{left}</div>
-      <img
-        src="svg/graph-design.svg"
-        alt=""
-        className="max-w-xs pl-4 opacity-80"
-      />
+    <div className="h-[36rem] relative">
+      {bg}
+      <SafeHSpace className="flex justify-between h-full items-center">
+        <div>{left}</div>
+        <img
+          src="svg/graph-design.svg"
+          alt=""
+          className="max-w-xs pl-4 opacity-80"
+        />
+      </SafeHSpace>
     </div>
   );
+};
+
+const SndPageContent = () => {
+  return <>XX</>;
 };
