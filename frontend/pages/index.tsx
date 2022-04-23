@@ -59,5 +59,37 @@ const FrontPageContent = () => {
 };
 
 const SndPageContent = () => {
-  return <>XX</>;
+  const Section = (args: {
+    title: string;
+    iconLink: string;
+    description: string;
+  }) => (
+    <div className="w-72 text-center flex flex-col items-center gap-10">
+      <h2 className="font-bold uppercase text-3xl">{args.title}</h2>
+      <img src={args.iconLink} alt="" className="w-24 h-24" />
+      <p className="text-midnight-800">{args.description}</p>
+    </div>
+  );
+  return (
+    <SafeHSpace
+      className="py-24 flex flex-col justify-between gap-36 items-center 
+                 lg:items-baseline lg:gap-8 lg:flex-row"
+    >
+      <Section
+        title="Secure"
+        iconLink="svg/shield.svg"
+        description="We provide polls which can only be voted once per user identified via twitch."
+      ></Section>
+      <Section
+        title="Easy to use"
+        iconLink="svg/double-arrow-right.svg"
+        description="Voters only need to copy and paste a 4 letter code into the twitch chat to authenticate themselves and validate their votes."
+      ></Section>
+      <Section
+        title="Configurable"
+        iconLink="svg/wrench.svg"
+        description="You can configure vote changes, twitch code security and much more."
+      ></Section>
+    </SafeHSpace>
+  );
 };

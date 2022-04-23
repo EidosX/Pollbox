@@ -4,7 +4,7 @@ import { defaultAvatarUrl, useCurrentUser } from '../lib/CurrentUser';
 export const Navbar = () => {
   const user = useCurrentUser();
   return (
-    <div className="flex text-white font-light relative gap-12 h-14 items-center select-none">
+    <div className="flex text-white font-light relative gap-12 h-16 items-center select-none">
       <Link href="/">
         <img src="svg/logo.svg" alt="Eidovote" className="mr-auto" />
       </Link>
