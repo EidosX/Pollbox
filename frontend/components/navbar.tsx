@@ -1,12 +1,13 @@
+import Link from 'next/link';
 import { defaultAvatarUrl, useCurrentUser } from '../lib/CurrentUser';
 
 export const Navbar = () => {
   const user = useCurrentUser();
   return (
     <div className="flex text-white font-light relative gap-12 h-14 items-center select-none">
-      <a href="/" className="mr-auto">
-        <img src="svg/logo.svg" alt="Eidovote" />
-      </a>
+      <Link href="/">
+        <img src="svg/logo.svg" alt="Eidovote" className="mr-auto" />
+      </Link>
       {!!user && <p>My Votes</p>}
       {!!user ? (
         <div className="flex gap-4 items-center">
@@ -18,9 +19,9 @@ export const Navbar = () => {
           />
         </div>
       ) : (
-        <a href="/login" className="text-white">
-          Login
-        </a>
+        <Link href="/login">
+          <p className="text-white">Login</p>
+        </Link>
       )}
     </div>
   );
