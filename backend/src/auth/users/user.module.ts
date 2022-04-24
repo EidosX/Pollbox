@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserDummyService } from './User.dummy.service';
-import { UserService } from './User.service';
+import { UserDummyService } from './user.dummy.service';
+import { UserService } from './user.service';
 
 @Module({
   imports: [],
