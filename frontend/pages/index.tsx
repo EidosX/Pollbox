@@ -18,7 +18,7 @@ const FrontPageContent = () => {
     <img
       src="svg/bg-pattern.svg"
       alt=""
-      className="select-none pointer-events-none absolute bottom-0 w-full max-h-[42rem] object-cover -z-50"
+      className="select-none pointer-events-none absolute bottom-0 w-full h-screen max-h-[42rem] object-cover -z-50"
     />
   );
   const left = (
