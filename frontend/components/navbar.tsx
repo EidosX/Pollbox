@@ -1,10 +1,7 @@
 import Link from 'next/link';
+import { User } from '../../backend/src/users/User.service';
 import { useState } from 'react';
-import {
-  CurrentUser,
-  defaultAvatarUrl,
-  useCurrentUser,
-} from '../lib/CurrentUser';
+import { defaultAvatarUrl, useCurrentUser } from '../lib/CurrentUser';
 import { SafeHSpace } from './SafeHSpace';
 
 export const Navbar = () => {
@@ -42,7 +39,7 @@ export const Navbar = () => {
   );
 };
 
-const RightNavContent = ({ user }: { user: CurrentUser | undefined }) => {
+const RightNavContent = ({ user }: { user: User | undefined }) => {
   return (
     <>
       {!!user && <p className="cursor-pointer">My Votes</p>}
