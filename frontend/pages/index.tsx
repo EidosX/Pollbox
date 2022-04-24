@@ -18,7 +18,7 @@ const FrontPageContent = () => {
     <img
       src="svg/bg-pattern.svg"
       alt=""
-      className="select-none pointer-events-none absolute top-0 w-full h-full max-h-[42rem] object-cover -z-50"
+      className="select-none pointer-events-none absolute bottom-0 w-full max-h-[42rem] object-cover -z-50"
     />
   );
   const left = (
@@ -51,7 +51,7 @@ const FrontPageContent = () => {
         <img
           src="svg/graph-design.svg"
           alt=""
-          className="max-w-xs pl-4 opacity-80"
+          className="max-w-xs pl-4 opacity-80 select-none pointer-events-none hidden lg:block"
         />
       </SafeHSpace>
     </div>
