@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { SafeHSpace } from '../components/SafeHSpace';
-import Image from 'next/image';
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +15,7 @@ export default Home;
 
 const FrontPageContent = () => {
   const bg = (
-    <Image
+    <img
       src="svg/bg-pattern.svg"
       alt=""
       className="select-none pointer-events-none absolute bottom-0 w-full max-h-[42rem] object-cover -z-50"
@@ -31,10 +30,10 @@ const FrontPageContent = () => {
         We have configurable security that prevents cheating without bothering
         the voters
       </h2>
-      <Link href="/login" passHref>
+      <Link href="/login">
         <button className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10">
           Try Eidovote{' '}
-          <Image
+          <img
             src="svg/down-arrow.svg"
             alt=""
             className="ml-8 w-4 -rotate-90"
@@ -49,7 +48,7 @@ const FrontPageContent = () => {
       {bg}
       <SafeHSpace className="flex justify-between h-full items-center">
         <div>{left}</div>
-        <Image
+        <img
           src="svg/graph-design.svg"
           alt=""
           className="max-w-xs pl-4 opacity-80 select-none pointer-events-none hidden lg:block"
@@ -67,7 +66,7 @@ const SndPageContent = () => {
   }) => (
     <div className="w-72 text-center flex flex-col items-center gap-10">
       <h2 className="font-bold uppercase text-3xl">{args.title}</h2>
-      <Image src={args.iconLink} alt="" className="w-24 h-24" />
+      <img src={args.iconLink} alt="" className="w-24 h-24" />
       <p className="text-midnight-800">{args.description}</p>
     </div>
   );

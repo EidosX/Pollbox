@@ -6,7 +6,6 @@ import {
   useCurrentUser,
 } from '../lib/CurrentUser';
 import { SafeHSpace } from './SafeHSpace';
-import Image from 'next/image';
 
 export const Navbar = () => {
   const user = useCurrentUser();
@@ -14,20 +13,20 @@ export const Navbar = () => {
   return (
     <>
       <div className="flex items-center h-16 z-50 relative">
-        <Link href="/" passHref>
-          <Image
+        <Link href="/">
+          <img
             src="svg/logo.svg"
             alt="Eidovote"
             className="mr-auto cursor-pointer"
           />
         </Link>
 
-        <Image
+        <img
           src="svg/hamburger-menu.svg"
           alt="menu"
           className="sm:hidden w-7 cursor-pointer"
           onClick={() => setHamMenuOpened((x) => !x)}
-        ></Image>
+        ></img>
 
         <div className="hidden sm:flex text-white font-light relative gap-12 items-center select-none">
           <RightNavContent user={user}></RightNavContent>
@@ -50,14 +49,14 @@ const RightNavContent = ({ user }: { user: CurrentUser | undefined }) => {
       {!!user ? (
         <div className="flex gap-4 items-center cursor-pointer">
           <p>{user.username}</p>
-          <Image
+          <img
             src={user.avatarUrl ?? defaultAvatarUrl}
             alt=""
             className="w-9 h-9"
           />
         </div>
       ) : (
-        <Link href="/login" passHref>
+        <Link href="/login">
           <p className="text-white cursor-pointer">Login</p>
         </Link>
       )}
