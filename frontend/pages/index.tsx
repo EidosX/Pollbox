@@ -30,17 +30,15 @@ const FrontPageContent = () => {
         We have configurable security that prevents cheating without bothering
         the voters
       </h2>
-      <Link href="/login">
-        <button className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10">
-          Try Pollbox{' '}
-          <img
-            src="svg/down-arrow.svg"
-            alt=""
-            className="ml-4 w-4 -rotate-90"
-            style={{ filter: 'invert(100%)' }}
-          />
-        </button>
-      </Link>
+      <button className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10">
+        Try Pollbox{' '}
+        <img
+          src="svg/down-arrow.svg"
+          alt=""
+          className="ml-4 w-4 -rotate-90"
+          style={{ filter: 'invert(100%)' }}
+        />
+      </button>
     </>
   );
   return (
