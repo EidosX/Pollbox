@@ -32,11 +32,11 @@ const FrontPageContent = () => {
       </h2>
       <Link href="/login">
         <button className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10">
-          Try Eidovote{' '}
+          Try Pollbox{' '}
           <img
             src="svg/down-arrow.svg"
             alt=""
-            className="ml-8 w-4 -rotate-90"
+            className="ml-4 w-4 -rotate-90"
             style={{ filter: 'invert(100%)' }}
           />
         </button>

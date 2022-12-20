@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { User } from '../../backend/src/users/User.service';
+import { User } from '../lib/CurrentUser';
 import { useState } from 'react';
 import { defaultAvatarUrl, useCurrentUser } from '../lib/CurrentUser';
 import { SafeHSpace } from './SafeHSpace';
@@ -13,7 +13,7 @@ export const Navbar = () => {
         <Link href="/">
           <img
             src="svg/logo.svg"
-            alt="Eidovote"
+            alt="Pollbox"
             className="mr-auto cursor-pointer"
           />
         </Link>

@@ -1,5 +1,5 @@
 {
-  "name": "eidovote",
+  "name": "pollbox",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^9.15.0",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0"
