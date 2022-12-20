@@ -5,10 +5,9 @@ export interface User {
   id: UserId;
   username: string;
   email: string;
-  emailVerification?: { status: 'unverified'; confirmationCode: string };
   avatarUrl?: string;
 }
 
 export function useCurrentUser(): User | undefined {
-  return undefined;
+  return { email: '', username: 'Eidos', id: '' };
 }
