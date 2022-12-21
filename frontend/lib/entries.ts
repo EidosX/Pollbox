@@ -3,12 +3,14 @@ import {
   doc,
   DocumentData,
   FirestoreDataConverter,
+  getCountFromServer,
   getFirestore,
   query,
   QueryDocumentSnapshot,
   SnapshotOptions,
   where,
 } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { UserId } from './auth';
 import { db, firebaseApp } from './firebase';
@@ -26,16 +28,30 @@ export interface Entry {
   pollId: PollId;
 }
 
-export function useEntries(pollId: PollId): [Entry[], boolean, boolean] {
+export function useEntries(
+  pollIds: PollId[]
+): [Map<PollId, Entry[]>, boolean, boolean] {
   const entriesRef = collection(db, 'entries').withConverter(postConverter);
+  const pollRefs = pollIds.map((pid) => doc(collection(db, 'polls'), pid));
   const [entries, loading, error] = useCollectionData(
-    query(entriesRef, where('pollId', '==', pollId))
+    pollIds.length ? query(entriesRef, where('pollRef', 'in', pollRefs)) : null
   );
 
-  if (typeof entries === 'undefined') return [[], false, true];
-  if (loading) return [[], loading, false];
+  if (typeof entries === 'undefined') return [new Map(), false, true];
+  if (loading) return [new Map(), loading, false];
+  console.log({ entries, loading, error });
 
-  return [entries as Entry[], false, false];
+  const map = new Map<PollId, Entry[]>();
+  for (let pid of pollIds) map.set(pid, []);
+  for (let e of entries) map.get(e.pollId)?.push(e);
+  return [map, false, false];
+}
+
+export function useEntriesCounts(pollIds: PollId[]): Map<PollId, number> {
+  const [entries] = useEntries(pollIds);
+  const map = new Map<PollId, number>();
+  for (let pid of pollIds) map.set(pid, entries.get(pid)?.length ?? 0);
+  return map;
 }
 
 const postConverter: FirestoreDataConverter<Entry> = {
