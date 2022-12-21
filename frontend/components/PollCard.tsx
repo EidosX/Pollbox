@@ -13,12 +13,11 @@ export const PollCard = ({ poll }: { poll: Poll }) => {
 
   const onMouseMove: MouseEventHandler = (e) => {
     if (!ref.current || !mouseGradientRef.current) return;
-    // console.log([e.pageX, e.pageY]);
-    // console.log([e.clientX, e.clientY]);
-    const gradientRect = (
-      mouseGradientRef.current as any
-    ).getBoundingClientRect();
-    const parentRect = (ref.current as any).getBoundingClientRect();
+    const ref2 = ref.current as any;
+    const mouseGradientRef2 = mouseGradientRef.current as any;
+
+    const gradientRect = mouseGradientRef2.getBoundingClientRect();
+    const parentRect = ref2.getBoundingClientRect();
     const x = e.clientX - parentRect.x - gradientRect.width / 2;
     const y = e.clientY - parentRect.y - gradientRect.height / 2;
     if (
@@ -28,7 +27,6 @@ export const PollCard = ({ poll }: { poll: Poll }) => {
       e.clientY >= parentRect.y + parentRect.height
     )
       return;
-    const mouseGradientRef2 = mouseGradientRef.current as any;
     mouseGradientRef2.style.transform = `translate(${x}px, ${y}px)`;
   };
 
