@@ -11,7 +11,10 @@ import {
   Timestamp,
   where,
 } from 'firebase/firestore';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import {
+  useCollectionData,
+  useDocumentData,
+} from 'react-firebase-hooks/firestore';
 import { db } from './firebase';
 
 export type PollId = string;
@@ -32,9 +35,20 @@ export interface Poll {
   status: 'submissions' | 'running' | 'finished' | 'published';
   title: string;
   type: 'classic';
+  onlyShowTop: number;
 }
 
-export function usePolls(userId: UserId | null): [Poll[], boolean, boolean] {
+export function usePoll(pollId: PollId | null): [Poll | null] {
+  const pollRef = pollId ? doc(db, `polls/${pollId}`) : null;
+  const [poll] = useDocumentData(pollRef?.withConverter(postConverter));
+  return [poll ?? null];
+}
+
+export function usePolls({
+  userId,
+}: {
+  userId: UserId | null;
+}): [Poll[], boolean, boolean] {
   const userDocRef = userId ? doc(collection(db, 'users'), userId) : null;
 
   const pollsRef = collection(db, 'polls').withConverter(postConverter);
@@ -70,6 +84,7 @@ const postConverter: FirestoreDataConverter<Poll> = {
       status: post.security,
       title: post.title,
       type: post.type,
+      onlyShowTop: post.onlyShowTop,
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions) {
@@ -90,6 +105,7 @@ const postConverter: FirestoreDataConverter<Poll> = {
       status: data.status,
       title: data.title,
       type: data.type,
+      onlyShowTop: data.onlyShowTop,
     };
   },
 };

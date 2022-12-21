@@ -38,7 +38,7 @@ export const PollCard = ({ poll }: { poll: Poll }) => {
       onMouseMove={onMouseMove}
     >
       <div
-        className="w-full aspect-square absolute opacity-0 hover:opacity-20"
+        className="w-full aspect-square absolute opacity-0 hover:opacity-10"
         style={{
           background: 'radial-gradient(closest-side, #aaccff, #00000000)',
           transition: 'opacity 180ms',

@@ -10,9 +10,9 @@ const UserPage = () => {
   const userId = typeof router.query.id === 'string' ? router.query.id : null;
 
   const [user] = useUserById(userId);
-  const [polls] = usePolls(userId);
+  const [polls] = usePolls({ userId });
 
-  if (typeof userId != 'string') return <p>Invalid user id</p>;
+  if (!userId) return <p>Invalid user id</p>;
 
   return (
     <SafeHSpace>

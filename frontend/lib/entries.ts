@@ -18,8 +18,10 @@ export interface Entry {
   id: EntryId;
   contestant: {
     id: UserId | null;
-    displayName: string;
+    displayName: string | null;
+    avatarUrl: string | null;
     twitchId: string | null;
+    twitchName: string | null;
   };
   content: string;
 }
@@ -53,6 +55,8 @@ const postConverter: FirestoreDataConverter<Entry> = {
           post.contestant.id &&
           doc(collection(db, 'users'), post.contestant.id),
         twitchId: post.contestant.twitchId,
+        twitchName: post.contestant.twitchName,
+        avatarUrl: post.contestant.avatarUrl,
       },
     };
   },
@@ -64,6 +68,8 @@ const postConverter: FirestoreDataConverter<Entry> = {
         displayName: data.contestant.displayName,
         id: data.contestant.ref?.id,
         twitchId: data.contestant.twitchId,
+        twitchName: data.contestant.twitchName,
+        avatarUrl: data.contestant.avatarUrl,
       },
       id: snapshot.id,
     };
