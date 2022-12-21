@@ -1,12 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import {
-  DocumentData,
-  FirestoreDataConverter,
-  getFirestore,
-  QueryDocumentSnapshot,
-  SnapshotOptions,
-  WithFieldValue,
-} from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBOGPZy77GIwQZ4BcV_K4lwJGC6QDenKxM',

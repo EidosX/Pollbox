@@ -3,17 +3,13 @@ import {
   doc,
   DocumentData,
   FirestoreDataConverter,
-  getCountFromServer,
-  getFirestore,
   query,
   QueryDocumentSnapshot,
   SnapshotOptions,
-  where,
 } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { UserId } from './auth';
-import { db, firebaseApp } from './firebase';
+import { db } from './firebase';
 import { PollId } from './polls';
 
 export type EntryId = string;
@@ -23,35 +19,28 @@ export interface Entry {
   contestant: {
     id: UserId;
     displayName: string;
+    twitchId: string | null;
   };
   content: string;
-  pollId: PollId;
 }
 
-export function useEntries(
-  pollIds: PollId[]
-): [Map<PollId, Entry[]>, boolean, boolean] {
-  const entriesRef = collection(db, 'entries').withConverter(postConverter);
-  const pollRefs = pollIds.map((pid) => doc(collection(db, 'polls'), pid));
+export function useEntries(pollId: PollId | null): [Entry[], boolean, boolean] {
+  const entriesRef = pollId
+    ? collection(db, `polls/${pollId}/entries`).withConverter(postConverter)
+    : null;
   const [entries, loading, error] = useCollectionData(
-    pollIds.length ? query(entriesRef, where('pollRef', 'in', pollRefs)) : null
+    entriesRef && query(entriesRef)
   );
 
-  if (typeof entries === 'undefined') return [new Map(), false, true];
-  if (loading) return [new Map(), loading, false];
-  console.log({ entries, loading, error });
+  if (typeof entries === 'undefined') return [[], false, true];
+  if (loading) return [[], loading, false];
 
-  const map = new Map<PollId, Entry[]>();
-  for (let pid of pollIds) map.set(pid, []);
-  for (let e of entries) map.get(e.pollId)?.push(e);
-  return [map, false, false];
+  return [entries, false, false];
 }
 
-export function useEntriesCounts(pollIds: PollId[]): Map<PollId, number> {
-  const [entries] = useEntries(pollIds);
-  const map = new Map<PollId, number>();
-  for (let pid of pollIds) map.set(pid, entries.get(pid)?.length ?? 0);
-  return map;
+export function useEntriesCount(pollId: PollId): number {
+  const [entries] = useEntries(pollId);
+  return entries.length;
 }
 
 const postConverter: FirestoreDataConverter<Entry> = {
@@ -61,8 +50,8 @@ const postConverter: FirestoreDataConverter<Entry> = {
       contestant: {
         displayName: post.contestant.displayName,
         ref: doc(collection(db, 'users'), post.contestant.id),
+        twitchId: post.contestant.twitchId,
       },
-      pollRef: doc(collection(db, 'polls'), post.pollId),
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions) {
@@ -72,9 +61,9 @@ const postConverter: FirestoreDataConverter<Entry> = {
       contestant: {
         displayName: data.contestant.displayName,
         id: data.contestant.ref.id,
+        twitchId: data.contestant.twitchId,
       },
       id: snapshot.id,
-      pollId: data.pollRef.id,
     };
   },
 };
