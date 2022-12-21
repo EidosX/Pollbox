@@ -33,16 +33,17 @@ export interface Poll {
   title: string;
 }
 
-export function usePolls(userId: UserId): [Poll[], boolean, boolean] {
-  const userDocRef = doc(collection(db, 'users'), userId);
+export function usePolls(userId: UserId | null): [Poll[], boolean, boolean] {
+  const userDocRef = userId ? doc(collection(db, 'users'), userId) : null;
 
   const pollsRef = collection(db, 'polls').withConverter(postConverter);
   const [polls, loading, error] = useCollectionData(
-    query(
-      pollsRef,
-      where('creator.ref', '==', userDocRef),
-      orderBy('createdAt', 'desc')
-    )
+    userDocRef &&
+      query(
+        pollsRef,
+        where('creator.ref', '==', userDocRef),
+        orderBy('createdAt', 'desc')
+      )
   );
 
   if (typeof polls === 'undefined') return [[], false, true];

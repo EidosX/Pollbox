@@ -15,7 +15,7 @@ export const PollCard = (props: {
           By {poll.creator.displayName}
         </p>
       </div>
-      <div className="flex justify-between gap-16">
+      <div className="flex justify-between gap-12">
         <div className="flex flex-col gap-0.5 w-full">
           <p className="text-xs text-midnight-800">Status</p>
           {poll.status === 'running' && (
@@ -36,14 +36,14 @@ export const PollCard = (props: {
           </p>
         </div>
       </div>
-      <div className="flex justify-between gap-16">
+      <div className="flex justify-between gap-12">
         <div className="flex flex-col gap-0.5 w-full">
           <p className="text-xs text-midnight-800">Total number of entries</p>
-          <p className="text-7xl">{entries}</p>
+          <p className="text-7xl w-0">{entries}</p>
         </div>
         <div className="flex flex-col gap-0.5 w-full">
           <p className="text-xs text-midnight-800">Total number of Votes</p>
-          <p className="text-7xl">{votes}</p>
+          <p className="text-7xl w-0">{votes}</p>
         </div>
       </div>
     </div>

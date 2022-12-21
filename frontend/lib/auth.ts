@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import {
   addDoc,
   collection,
+  doc,
   DocumentData,
   FirestoreDataConverter,
   limit,
@@ -17,7 +18,10 @@ import {
   SnapshotOptions,
   where,
 } from 'firebase/firestore';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import {
+  useCollectionData,
+  useDocumentData,
+} from 'react-firebase-hooks/firestore';
 import { useEffect } from 'react';
 
 export const defaultAvatarUrl = '/svg/generic-avatar.svg';
@@ -55,6 +59,15 @@ export function useCurrentUser(): User | null {
   if (!u || !users) return null;
   else if (users.length === 1) return users[0];
   return null;
+}
+
+export function useUserById(
+  id: UserId | null
+): [User | null, boolean, boolean] {
+  const [user, loading, error] = useDocumentData(
+    id ? doc(collection(db, 'users'), id).withConverter(postConverter) : null
+  );
+  return [user ?? null, loading, !!error];
 }
 
 export function signInWithGoogle() {

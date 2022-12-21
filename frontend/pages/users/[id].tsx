@@ -2,32 +2,28 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PollCard } from '../../components/PollCard';
 import { SafeHSpace } from '../../components/SafeHSpace';
-import { usePolls } from '../../lib/polls';
+import { useUserById } from '../../lib/auth';
+import { Poll, usePolls } from '../../lib/polls';
 
 const UserPage = () => {
   const router = useRouter();
-  const { id: userId } = router.query;
+  const userId = typeof router.query.id === 'string' ? router.query.id : null;
+
+  const [user] = useUserById(userId);
+  const [polls] = usePolls(userId);
 
   if (typeof userId != 'string') return <p>Invalid user id</p>;
 
   return (
     <SafeHSpace>
-      <Top userId={userId}></Top>
-      <PollList userId={userId} />
+      <h1 className="text-lg my-4 font-bold">My Polls</h1>
+      <PollList polls={polls} />
     </SafeHSpace>
   );
 };
 export default UserPage;
 
-const Top = ({ userId }: { userId: string }) => {
-  return (
-    <div>
-      <p>{}</p>
-    </div>
-  );
-};
-const PollList = ({ userId }: { userId: string }) => {
-  const [polls] = usePolls(userId);
+const PollList = ({ polls }: { polls: Poll[] }) => {
   return (
     <div className="flex flex-wrap gap-4">
       {polls.map((p) => (
