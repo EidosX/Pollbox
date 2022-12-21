@@ -1,4 +1,12 @@
 import { initializeApp } from 'firebase/app';
+import {
+  DocumentData,
+  FirestoreDataConverter,
+  getFirestore,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+  WithFieldValue,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBOGPZy77GIwQZ4BcV_K4lwJGC6QDenKxM',
@@ -11,3 +19,4 @@ const firebaseConfig = {
 };
 
 export const firebaseApp = initializeApp(firebaseConfig);
+export const db = getFirestore(firebaseApp);

@@ -16,7 +16,7 @@ export default Home;
 const FrontPageContent = () => {
   const bg = (
     <img
-      src="svg/bg-pattern.svg"
+      src="/svg/bg-pattern.svg"
       alt=""
       className="select-none pointer-events-none absolute bottom-0 w-full h-screen max-h-[42rem] object-cover -z-50"
     />
@@ -33,7 +33,7 @@ const FrontPageContent = () => {
       <button className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10">
         Try Pollbox{' '}
         <img
-          src="svg/down-arrow.svg"
+          src="/svg/down-arrow.svg"
           alt=""
           className="ml-4 w-4 -rotate-90"
           style={{ filter: 'invert(100%)' }}
@@ -47,7 +47,7 @@ const FrontPageContent = () => {
       <SafeHSpace className="flex justify-between h-full items-center">
         <div>{left}</div>
         <img
-          src="svg/graph-design.svg"
+          src="/svg/graph-design.svg"
           alt=""
           className="max-w-xs pl-4 opacity-80 select-none pointer-events-none hidden lg:block"
         />
@@ -75,17 +75,17 @@ const SndPageContent = () => {
     >
       <Section
         title="Secure"
-        iconLink="svg/shield.svg"
+        iconLink="/svg/shield.svg"
         description="We provide polls which can only be voted once per user identified via twitch."
       ></Section>
       <Section
         title="Easy to use"
-        iconLink="svg/double-arrow-right.svg"
+        iconLink="/svg/double-arrow-right.svg"
         description="Voters only need to copy and paste a 4 letter code into the twitch chat to authenticate themselves and validate their votes."
       ></Section>
       <Section
         title="Configurable"
-        iconLink="svg/wrench.svg"
+        iconLink="/svg/wrench.svg"
         description="You can configure vote changes, twitch code security and much more."
       ></Section>
     </SafeHSpace>

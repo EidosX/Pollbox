@@ -12,14 +12,14 @@ export const Navbar = () => {
       <div className="flex items-center h-16 z-50 relative">
         <Link href="/">
           <img
-            src="svg/logo.svg"
+            src="/svg/logo.svg"
             alt="Pollbox"
             className="mr-auto cursor-pointer"
           />
         </Link>
 
         <img
-          src="svg/hamburger-menu.svg"
+          src="/svg/hamburger-menu.svg"
           alt="menu"
           className="lg:hidden w-7 cursor-pointer"
           onClick={() => setHamMenuOpened((x) => !x)}
@@ -47,20 +47,21 @@ const RightNavContent = ({ user }: { user: User | null }) => {
           Log out
         </p>
       )}
-      {!!user && <p className="cursor-pointer">My Votes</p>}
       {!!user ? (
-        <p className="cursor-pointer">
-          {user.username}
-          <img
-            src={user.avatarUrl ?? defaultAvatarUrl}
-            alt=""
-            className="inline w-9 h-9 rounded-full ml-3"
-          />
-        </p>
+        <Link href={`/users/${user.id}`}>
+          <p className="cursor-pointer">
+            {user.username}
+            <img
+              src={user.avatarUrl ?? defaultAvatarUrl}
+              alt=""
+              className="inline w-9 h-9 rounded-full ml-3"
+            />
+          </p>
+        </Link>
       ) : (
         <p className="text-white cursor-pointer" onClick={signInWithGoogle}>
           Sign in with{' '}
-          <img src="svg/google.svg" alt="Google" className="inline h-6 ml-1" />
+          <img src="/svg/google.svg" alt="Google" className="inline h-6 ml-1" />
         </p>
       )}
     </>
