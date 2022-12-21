@@ -4,6 +4,7 @@ import {
   doc,
   DocumentData,
   FirestoreDataConverter,
+  orderBy,
   query,
   QueryDocumentSnapshot,
   SnapshotOptions,
@@ -37,7 +38,11 @@ export function usePolls(userId: UserId): [Poll[], boolean, boolean] {
 
   const pollsRef = collection(db, 'polls').withConverter(postConverter);
   const [polls, loading, error] = useCollectionData(
-    query(pollsRef, where('creator.ref', '==', userDocRef))
+    query(
+      pollsRef,
+      where('creator.ref', '==', userDocRef),
+      orderBy('createdAt', 'desc')
+    )
   );
 
   if (typeof polls === 'undefined') return [[], false, true];

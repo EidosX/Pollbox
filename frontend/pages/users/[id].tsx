@@ -31,11 +31,10 @@ const PollList = ({ userId }: { userId: string }) => {
   return (
     <div className="flex flex-wrap gap-4">
       {polls.map((p) => (
-        <Link href={`/polls/${p.id}`}>
+        <Link key={p.id} href={`/polls/${p.id}`}>
           <div
             className="flex-grow flex-shrink basis-0 relative cursor-pointer"
             style={{ height: '22rem' }}
-            key={p.id}
           >
             <PollCard poll={p} entries={0} votes={0} />
           </div>
