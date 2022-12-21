@@ -32,7 +32,7 @@ const PollList = ({ userId }: { userId: string }) => {
       {polls.map((p) => (
         <div
           className="flex-grow flex-shrink basis-0 relative"
-          style={{ height: '23rem' }}
+          style={{ height: '22rem' }}
           key={p.id}
         >
           <PollCard poll={p} entries={0} votes={0} />

@@ -39,11 +39,11 @@ export const PollCard = (props: {
       <div className="flex justify-between gap-16">
         <div className="flex flex-col gap-0.5 w-full">
           <p className="text-xs text-midnight-800">Total number of entries</p>
-          <p className="text-8xl">{entries}</p>
+          <p className="text-7xl">{entries}</p>
         </div>
         <div className="flex flex-col gap-0.5 w-full">
           <p className="text-xs text-midnight-800">Total number of Votes</p>
-          <p className="text-8xl">{votes}</p>
+          <p className="text-7xl">{votes}</p>
         </div>
       </div>
     </div>

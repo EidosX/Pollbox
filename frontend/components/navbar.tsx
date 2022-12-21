@@ -21,16 +21,16 @@ export const Navbar = () => {
         <img
           src="/svg/hamburger-menu.svg"
           alt="menu"
-          className="lg:hidden w-7 cursor-pointer"
+          className="md:hidden w-7 cursor-pointer"
           onClick={() => setHamMenuOpened((x) => !x)}
         ></img>
 
-        <div className="hidden lg:flex text-white font-light relative gap-12 items-center select-none">
+        <div className="hidden md:flex text-white font-light relative gap-12 items-center select-none">
           <RightNavContent user={user}></RightNavContent>
         </div>
       </div>
       <HamMenu
-        className={`lg:hidden absolute z-40 px-12 py-6 left-0 right-0 transition duration-500 shadow-2xl shadow-black ${
+        className={`md:hidden absolute z-40 px-12 py-6 left-0 right-0 transition duration-500 shadow-2xl shadow-black ${
           hamMenuOpened ? 'translate-y-0' : '-translate-y-64'
         }`}
         user={user}

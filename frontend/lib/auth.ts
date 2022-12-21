@@ -7,10 +7,10 @@ import {
 import { db, firebaseApp } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
+  addDoc,
   collection,
   DocumentData,
   FirestoreDataConverter,
-  getFirestore,
   limit,
   query,
   QueryDocumentSnapshot,
@@ -18,6 +18,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useEffect } from 'react';
 
 export const defaultAvatarUrl = '/svg/generic-avatar.svg';
 
@@ -26,6 +27,9 @@ export interface User {
   id: UserId;
   username: string;
   avatarUrl: string | null;
+  linkedAccounts: {
+    google: string;
+  };
 }
 
 export function useCurrentUser(): User | null {
@@ -35,14 +39,22 @@ export function useCurrentUser(): User | null {
     u && query(usersRef, where('linkedAccounts.google', '==', u.uid), limit(2))
   );
 
-  if (!users) return null;
-  else if (users.length === 0) {
-    // Create new user
-    return null;
-  } else if (users.length !== 1) {
-    console.error('MULTIPLE USERS ASSOCIATED WITH SAME GOOGLE ACCOUNT');
-    return null;
-  } else return users[0];
+  useEffect(() => {
+    if (u && users?.length === 0) {
+      addDoc<User>(usersRef, {
+        avatarUrl: u.photoURL,
+        username: u.displayName ?? '???',
+        id: '???',
+        linkedAccounts: {
+          google: u.uid,
+        },
+      });
+    }
+  }, [u?.uid]);
+
+  if (!u || !users) return null;
+  else if (users.length === 1) return users[0];
+  return null;
 }
 
 export function signInWithGoogle() {
@@ -59,6 +71,9 @@ const postConverter: FirestoreDataConverter<User> = {
     return {
       avatarUrl: post.avatarUrl,
       username: post.username,
+      linkedAccounts: {
+        google: post.linkedAccounts.google,
+      },
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions) {
@@ -67,6 +82,9 @@ const postConverter: FirestoreDataConverter<User> = {
       id: snapshot.id,
       avatarUrl: data.avatarUrl,
       username: data.username,
+      linkedAccounts: {
+        google: data.linkedAccounts.google,
+      },
     };
   },
 };
