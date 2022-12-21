@@ -1,9 +1,16 @@
+import Link from 'next/link';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useEntriesCount } from '../lib/entries';
 import { Poll } from '../lib/polls';
 import { useVotesCount } from '../lib/votes';
 
-export const PollCard = ({ poll }: { poll: Poll }) => {
+export const PollCard = ({
+  poll,
+  noClick,
+}: {
+  poll: Poll;
+  noClick?: boolean;
+}) => {
   const date = poll.createdAt.toDate();
 
   const entriesCount = useEntriesCount(poll.id);
@@ -26,9 +33,12 @@ export const PollCard = ({ poll }: { poll: Poll }) => {
       e.clientY < parentRect.y ||
       e.clientX >= parentRect.x + parentRect.width ||
       e.clientY >= parentRect.y + parentRect.height
-    )
+    ) {
+      mouseGradientRef2.style.opacity = '0%';
       return;
+    }
     mouseGradientRef2.style.transform = `translate(${x}px, ${y}px)`;
+    mouseGradientRef2.style.opacity = '10%';
   };
 
   return (
@@ -36,20 +46,26 @@ export const PollCard = ({ poll }: { poll: Poll }) => {
       className="flex flex-col gap-8 justify-between bg-cardbg rounded-lg px-9 py-7 h-full overflow-hidden relative"
       ref={ref}
       onMouseMove={onMouseMove}
+      onMouseLeave={onMouseMove}
+      onMouseEnter={onMouseMove}
     >
       <div
-        className="w-full aspect-square absolute opacity-0 hover:opacity-10"
+        className="w-full aspect-square absolute pointer-events-none opacity-0"
         style={{
           background: 'radial-gradient(closest-side, #aaccff, #00000000)',
           transition: 'opacity 180ms',
         }}
         ref={mouseGradientRef}
       />
+      {noClick && <div className="absolute z-10 inset-0 bg-transparent"></div>}
+
       <div className="flex flex-col gap-0.5">
         <p className="font-bold text-2xl">{poll.title}</p>
-        <p className="text-xs text-midnight-800">
-          By {poll.creator.displayName}
-        </p>
+        <Link href={`/users/${poll.creator.id}`}>
+          <p className="text-xs text-midnight-800 cursor-pointer">
+            By {poll.creator.displayName}
+          </p>
+        </Link>
       </div>
       <div className="flex justify-between gap-12">
         <div className="flex flex-col gap-0.5 w-full">

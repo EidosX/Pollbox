@@ -32,7 +32,7 @@ const PollList = ({ polls }: { polls: Poll[] }) => {
             className="flex-grow flex-shrink basis-0 relative cursor-pointer hover:scale-105 transition-all"
             style={{ height: '22rem' }}
           >
-            <PollCard poll={p} />
+            <PollCard poll={p} noClick />
           </div>
         </Link>
       ))}

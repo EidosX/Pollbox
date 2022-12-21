@@ -35,7 +35,6 @@ export interface Poll {
   status: 'submissions' | 'running' | 'finished' | 'published';
   title: string;
   type: 'classic';
-  onlyShowTop: number;
 }
 
 export function usePoll(pollId: PollId | null): [Poll | null] {
@@ -84,7 +83,6 @@ const postConverter: FirestoreDataConverter<Poll> = {
       status: post.security,
       title: post.title,
       type: post.type,
-      onlyShowTop: post.onlyShowTop,
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot, options: SnapshotOptions) {
@@ -105,7 +103,6 @@ const postConverter: FirestoreDataConverter<Poll> = {
       status: data.status,
       title: data.title,
       type: data.type,
-      onlyShowTop: data.onlyShowTop,
     };
   },
 };
