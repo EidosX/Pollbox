@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
+import { MouseEventHandler } from 'react';
 import { SafeHSpace } from '../components/SafeHSpace';
+import { signInWithGoogle, useCurrentUser } from '../lib/auth';
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +16,7 @@ const Home: NextPage = () => {
 export default Home;
 
 const FrontPageContent = () => {
+  const user = useCurrentUser();
   const bg = (
     <img
       src="/svg/bg-pattern.svg"
@@ -21,6 +24,30 @@ const FrontPageContent = () => {
       className="select-none pointer-events-none absolute bottom-0 w-full h-screen max-h-[42rem] object-cover -z-50"
     />
   );
+
+  const actionButton = ({
+    text,
+    onClick,
+  }: {
+    text: string;
+    onClick?: MouseEventHandler;
+  }) => {
+    return (
+      <button
+        className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10"
+        onClick={onClick}
+      >
+        {text}
+        <img
+          src="/svg/down-arrow.svg"
+          alt=""
+          className="ml-4 w-4 -rotate-90"
+          style={{ filter: 'invert(100%)' }}
+        />
+      </button>
+    );
+  };
+
   const left = (
     <>
       <h1 className="uppercase font-extrabold text-5xl">
@@ -30,15 +57,13 @@ const FrontPageContent = () => {
         We have configurable security that prevents cheating without bothering
         the voters
       </h2>
-      <button className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10">
-        Try Pollbox{' '}
-        <img
-          src="/svg/down-arrow.svg"
-          alt=""
-          className="ml-4 w-4 -rotate-90"
-          style={{ filter: 'invert(100%)' }}
-        />
-      </button>
+      {user ? (
+        <Link href={`/users/${user.id}`}>
+          {actionButton({ text: 'My Dashboard' })}
+        </Link>
+      ) : (
+        actionButton({ text: 'Try Pollbox', onClick: signInWithGoogle })
+      )}
     </>
   );
   return (
