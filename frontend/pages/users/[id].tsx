@@ -29,7 +29,7 @@ const PollList = ({ polls }: { polls: Poll[] }) => {
       {polls.map((p) => (
         <Link key={p.id} href={`/polls/${p.id}`}>
           <div
-            className="flex-grow flex-shrink basis-0 relative cursor-pointer"
+            className="flex-grow flex-shrink basis-0 relative cursor-pointer hover:scale-105 transition-all"
             style={{ height: '22rem' }}
           >
             <PollCard poll={p} />

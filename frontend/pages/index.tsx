@@ -34,7 +34,7 @@ const FrontPageContent = () => {
   }) => {
     return (
       <button
-        className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10"
+        className="flex items-center text-midnight-100 bg-red-600 rounded-sm px-6 py-3 font-medium mt-10 hover:scale-110 transition-all"
         onClick={onClick}
       >
         {text}
