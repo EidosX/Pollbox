@@ -17,7 +17,7 @@ export type EntryId = string;
 export interface Entry {
   id: EntryId;
   contestant: {
-    id: UserId;
+    id: UserId | null;
     displayName: string;
     twitchId: string | null;
   };
@@ -49,7 +49,9 @@ const postConverter: FirestoreDataConverter<Entry> = {
       content: post.content,
       contestant: {
         displayName: post.contestant.displayName,
-        ref: doc(collection(db, 'users'), post.contestant.id),
+        ref:
+          post.contestant.id &&
+          doc(collection(db, 'users'), post.contestant.id),
         twitchId: post.contestant.twitchId,
       },
     };
@@ -60,7 +62,7 @@ const postConverter: FirestoreDataConverter<Entry> = {
       content: data.content,
       contestant: {
         displayName: data.contestant.displayName,
-        id: data.contestant.ref.id,
+        id: data.contestant.ref?.id,
         twitchId: data.contestant.twitchId,
       },
       id: snapshot.id,

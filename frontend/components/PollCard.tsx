@@ -1,12 +1,13 @@
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useEntriesCount } from '../lib/entries';
 import { Poll } from '../lib/polls';
+import { useVotesCount } from '../lib/votes';
 
 export const PollCard = ({ poll }: { poll: Poll }) => {
   const date = poll.createdAt.toDate();
 
   const entriesCount = useEntriesCount(poll.id);
-  const votesCount = 0;
+  const votesCount = useVotesCount(poll.id);
 
   const ref = useRef(null);
   const mouseGradientRef = useRef(null);
