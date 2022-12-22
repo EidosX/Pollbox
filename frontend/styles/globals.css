@@ -39,3 +39,12 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-red-submissions;
 }
+
+@keyframes bgDesignMove {
+  0% {
+    translate: -10rem 0;
+  }
+  100% {
+    translate: 200rem 0;
+  }
+}

@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { MouseEventHandler } from 'react';
+import BackgroundDesign from '../components/BackgroundDesign';
 import { SafeHSpace } from '../components/SafeHSpace';
 import { signInWithGoogle, useCurrentUser } from '../lib/auth';
 
@@ -17,13 +18,6 @@ export default Home;
 
 const FrontPageContent = () => {
   const user = useCurrentUser();
-  const bg = (
-    <img
-      src="/svg/bg-pattern.svg"
-      alt=""
-      className="select-none pointer-events-none absolute bottom-0 w-full h-screen max-h-[42rem] object-cover -z-50"
-    />
-  );
 
   const actionButton = ({
     text,
@@ -67,8 +61,8 @@ const FrontPageContent = () => {
     </>
   );
   return (
-    <div className="h-[36rem] relative">
-      {bg}
+    <div className="h-[36rem]">
+      <BackgroundDesign />
       <SafeHSpace className="flex justify-between h-full items-center">
         <div>{left}</div>
         <img
