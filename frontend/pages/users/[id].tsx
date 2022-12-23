@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { NavbarGhost } from '../../components/Navbar';
 import { PollCard } from '../../components/PollCard';
 import { SafeHSpace } from '../../components/SafeHSpace';
 import { useUserById } from '../../lib/auth';
@@ -16,6 +17,7 @@ const UserPage = () => {
 
   return (
     <SafeHSpace>
+      <NavbarGhost />
       <h1 className="text-lg my-4 font-bold">My Polls</h1>
       <PollList polls={polls} />
     </SafeHSpace>

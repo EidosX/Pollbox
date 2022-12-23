@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { MouseEventHandler } from 'react';
 import BackgroundDesign from '../components/BackgroundDesign';
+import { NavbarGhost } from '../components/Navbar';
 import { SafeHSpace } from '../components/SafeHSpace';
 import { signInWithGoogle, useCurrentUser } from '../lib/auth';
 
@@ -61,7 +62,7 @@ const FrontPageContent = () => {
     </>
   );
   return (
-    <div className="h-[36rem]">
+    <div className="h-[42rem] relative">
       <BackgroundDesign />
       <SafeHSpace className="flex justify-between h-full items-center">
         <div>{left}</div>

@@ -42,9 +42,9 @@ a {
 
 @keyframes bgDesignMove {
   0% {
-    translate: -10rem 0;
+    transform: translateX(-10rem);
   }
   100% {
-    translate: 200rem 0;
+    transform: translateX(190rem);
   }
 }

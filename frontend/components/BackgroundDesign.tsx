@@ -13,66 +13,73 @@ const genBar = () => {
 };
 
 export default () => {
-  const [bars1, setBars1] = useState<BarState[]>([
-    { pos: 200, id: 1 },
-    { pos: 180, id: 2 },
-    { pos: 140, id: 3 },
-    { pos: 130, id: 4 },
-    { pos: 92, id: 5 },
-    { pos: 80, id: 6 },
-    { pos: 48, id: 7 },
-    { pos: 30, id: 8 },
-    { pos: -10, id: 9 },
-    { pos: -28, id: 10 },
-    { pos: -60, id: 11 },
-  ]);
-  const [bars2, setBars2] = useState<BarState[]>([
-    { pos: 192, id: 1 },
-    { pos: 170, id: 2 },
-    { pos: 135, id: 3 },
-    { pos: 110, id: 4 },
-    { pos: 82, id: 5 },
-    { pos: 68, id: 6 },
-    { pos: 36, id: 7 },
-    { pos: 25, id: 8 },
-    { pos: -20, id: 9 },
-    { pos: -38, id: 10 },
-  ]);
-
-  useEffect(() => {
-    setTimeout(() => setBars1([...bars1.slice(-12), ...genBar()]), 9000);
-  }, [bars1]);
-
-  useEffect(() => {
-    setTimeout(() => setBars2([...bars2.slice(-16), ...genBar()]), 3500);
-  }, [bars2]);
+  const bars1 = [
+    { pos: 180 },
+    { pos: 140 },
+    { pos: 130 },
+    { pos: 92 },
+    { pos: 80 },
+    { pos: 48 },
+    { pos: 30 },
+  ];
+  const bars2 = [
+    { pos: 192 },
+    { pos: 170 },
+    { pos: 110 },
+    { pos: 82 },
+    { pos: 68 },
+    { pos: 36 },
+    { pos: 25 },
+  ];
 
   return (
-    <div className="select-none pointer-events-none absolute overflow-hidden top-0 w-full h-full max-h-[42rem] -z-50">
-      {bars2.map((p) => (
-        <Bar key={p.id} xPos={p.pos} opacity={0.3} speed="slow" />
-      ))}
-      {bars1.map((p) => (
-        <Bar key={p.id} xPos={p.pos} opacity={0.7} speed="fast" />
-      ))}
+    <div className="select-none pointer-events-none absolute overflow-hidden top-0 w-full h-full -z-50">
+      <div
+        style={{
+          height: '100%',
+          position: 'absolute',
+          animation: `bgDesignMove 90s linear infinite`,
+          opacity: 0.3,
+        }}
+      >
+        {bars2.map((p, i) => (
+          <Bar key={i} xPos={p.pos} />
+        ))}
+        {bars2.map((p, i) => (
+          <Bar key={i} xPos={p.pos - 200} />
+        ))}
+        {bars2.slice(0, 2).map((p, i) => (
+          <Bar key={i} xPos={p.pos - 400} />
+        ))}
+      </div>
+      <div
+        style={{
+          height: '100%',
+          position: 'absolute',
+          animation: `bgDesignMove 60s linear infinite`,
+          opacity: 0.6,
+        }}
+      >
+        {bars1.map((p, i) => (
+          <Bar key={i} xPos={p.pos} />
+        ))}
+        {bars1.map((p, i) => (
+          <Bar key={i} xPos={p.pos - 200} />
+        ))}
+        {bars1.slice(0, 2).map((p, i) => (
+          <Bar key={i} xPos={p.pos - 400} />
+        ))}
+      </div>
     </div>
   );
 };
 
-const Bar = (props: {
-  xPos: number;
-  speed: 'slow' | 'fast';
-  opacity: number;
-}) => (
+const Bar = (props: { xPos: number }) => (
   <div
-    className="absolute -rotate-45 from-transparent w-96 h-full scale-y-[200%]"
+    className="absolute -rotate-45 w-96 h-full scale-y-[300%]"
     style={{
-      background: 'linear-gradient(to top, #1A33C7 -120%, #1A20C700 90%)',
+      background: 'linear-gradient(to top, #1A33C7 5%, #1A20C700 70%)',
       left: `${props.xPos}rem`,
-      animation: `bgDesignMove ${
-        props.speed == 'fast' ? '60s' : '120s'
-      } linear forwards`,
-      opacity: `${props.opacity}`,
     }}
   />
 );

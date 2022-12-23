@@ -9,7 +9,7 @@ export const Navbar = () => {
   const [hamMenuOpened, setHamMenuOpened] = useState(false);
   return (
     <>
-      <div className="flex items-center h-16 z-50 relative">
+      <div className="flex w-full items-center h-16 z-50 absolute">
         <Link href="/">
           <img
             src="/svg/logo.svg"
@@ -38,6 +38,7 @@ export const Navbar = () => {
     </>
   );
 };
+export const NavbarGhost = () => <div className="h-16" />;
 
 const RightNavContent = ({ user }: { user: User | null }) => {
   return (
